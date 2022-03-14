@@ -1,0 +1,550 @@
+img {
+    width: 100%;
+    vertical-align: middle;
+}
+
+body {
+    background-color: #181518;
+}
+
+// ===== fullShow start =====
+.fullShow {
+    max-width: 1600px;
+    margin: auto;
+    position: relative;
+    .top {
+        width: 100%;
+        max-width: 1400px;
+        margin: auto;
+        padding: 5px 10px;
+        position: absolute;
+        @include pos(tlr, 0);
+        z-index: 3;
+        opacity: 0.7;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        overflow: hidden;
+
+        .txtLogo {
+            a {
+                width: 130px;
+                height: 28px;
+                background: url("../images/other/logo.png") no-repeat center / cover;
+                @include imgToTxt();
+                display: inline-block;
+            }
+        }
+
+        .menuBar {
+            width: 50%;
+            height: 100%;
+            padding-right: 10px;
+            transform: translateX(100%);
+            opacity: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), rgb(192, 64, 64));
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            position: absolute;
+            @include pos(tr, 0);
+            transition: 0.5s;
+            cursor: pointer;
+            @include rwd(820) {
+                transform: translateX(0%);
+                opacity: 1;
+            }
+            .icon {
+                width: 30px;
+                height: 30px;
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+                position: relative;
+
+                span {
+                    width: 85%;
+                    height: 3px;
+                    display: inline-block;
+                    background-color: #fff;
+                    border-radius: 5px;
+                    transition: 0.5s;
+                }
+                &::before,
+                &::after {
+                    content: "";
+                    width: 85%;
+                    height: 3px;
+                    margin: auto;
+                    background-color: #fff;
+                    border-radius: 5px;
+                    position: absolute;
+                    transition: 0.5s;
+                }
+                &::before {
+                    @include pos(tbl, 0, 18px, 0);
+                }
+                &::after {
+                    @include pos(tbl, 18px, 0, 0);
+                }
+
+                &.on {
+                    span {
+                        opacity: 0;
+                    }
+                    &::before,
+                    &::after {
+                        @include pos(tbl, 0);
+                    }
+                    &::before {
+                        transform: rotate(45deg);
+                    }
+                    &::after {
+                        transform: rotate(-45deg);
+                    }
+                }
+            }
+        }
+    }
+
+    // imgList start (圖片展示)
+    .imgList {
+        height: 550px;
+        position: relative;
+        @include rwd(820) {
+            height: 67vw;
+            min-height: 400px;
+        }
+        &::before {
+            content: "";
+            width: 30%;
+            height: 100%;
+            background: linear-gradient(-90deg, transparent, #181518);
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 2;
+        }
+
+        &::after {
+            content: "";
+            width: 30%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, #181518);
+            position: absolute;
+            top: 0;
+            right: 0;
+            z-index: 2;
+        }
+        div {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            @include pos(tl, 0);
+            background: no-repeat center top / cover;
+            color: #fff;
+            opacity: 0;
+            transition: 1s;
+            &.on {
+                opacity: 1;
+            }
+            @include rwd(1200) {
+                background-position: var(--bgpos) 0%;
+            }
+        }
+    }
+
+    // actressMenu (女優分類)
+    @at-root .actressMenu {
+        width: 100%;
+        max-width: 1400px;
+        padding-right: 10px;
+        margin: auto;
+        position: absolute;
+        @include pos(tlr, 50px, 0, 0);
+        text-align: right;
+        z-index: 3;
+        font-weight: 600;
+        ul {
+            display: inline-block;
+        }
+        li {
+            padding: 0 15px 0 50px;
+            height: 35px;
+            line-height: 35px;
+            color: #fff;
+            opacity: 0.6;
+            transition: 0.5s;
+            cursor: pointer;
+            @include rwd(500) {
+                padding: 0 5px;
+            }
+            @include hover {
+                &:hover {
+                    font-size: 18px;
+                    opacity: 1;
+                    font-weight: bold;
+                    background: linear-gradient(90deg, transparent, rgba(237, 166, 255, 0.4), transparent);
+                }
+            }
+        }
+    }
+
+    // sortMenu start (類別分類)
+    @at-root .sortMenu {
+        padding: 15px 10px;
+        background: linear-gradient(180deg, transparent, #181518 30%);
+        transform: translateY(-20px);
+        position: relative;
+        z-index: 3;
+        @include rwd(820) {
+            width: 100%;
+            height: 100vh;
+            padding: 0;
+            position: fixed;
+            @include pos(tr, 0);
+            transform: translateY(0) translateX(100%);
+            display: flex;
+            justify-content: flex-end;
+            background: transparent;
+            opacity: 0;
+            &.on {
+                transform: translateX(0);
+                opacity: 1;
+                transition: transform 0.5s;
+                .menu {
+                    @include rwd(820) {
+                        transform: translateX(0%);
+                    }
+                }
+            }
+        }
+
+        .closeBg {
+            width: 100%;
+            height: 100%;
+            background-color: rgba(148, 149, 250, 0.4);
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            display: none;
+            cursor: pointer;
+            @include rwd(820) {
+                display: block;
+            }
+        }
+        .closeBtn {
+            width: 35px;
+            height: 35px;
+            border: 2px solid #fff;
+            position: absolute;
+            @include pos(tr, 10px);
+            border-radius: 50%;
+            z-index: 3;
+            opacity: 0.6;
+            cursor: pointer;
+            display: none;
+            @include rwd(820) {
+                display: block;
+            }
+            &::before,
+            &::after {
+                content: "";
+                width: calc(100% - 10px);
+                height: 2px;
+                margin: auto;
+                background-color: #fff;
+                position: absolute;
+                @include pos(tbrl, 0);
+            }
+            &::before {
+                transform: rotate(45deg);
+            }
+            &::after {
+                transform: rotate(-45deg);
+            }
+        }
+
+        .menu {
+            @include rwd(820) {
+                width: 40%;
+                min-width: 230px;
+                background: url(../images/other/menuImg.jpg) no-repeat center top / cover;
+                box-shadow: -2px 0 6px rgba(148, 149, 250, 0.6);
+                overflow-y: auto;
+                transform: translateX(100%);
+                transition: 0.5s 0.1s;
+                position: relative;
+                &::-webkit-scrollbar {
+                    width: 0;
+                }
+            }
+        }
+
+        ul {
+            width: 100%;
+            max-width: 1200px;
+            margin: auto;
+            display: flex;
+            justify-content: center;
+            position: relative;
+            @include rwd(820) {
+                min-height: 100vh;
+                padding: 60px 0 40px;
+                flex-direction: column;
+                justify-content: flex-start;
+                background-color: rgba(70, 9, 9, 0.8);
+            }
+        }
+        li {
+            cursor: pointer;
+            transition: 0.5s, margin 0s;
+            @include rwd(820) {
+                text-align: center;
+            }
+            @include hover {
+                &:hover {
+                    transform: translateY(-5px);
+                    .theme {
+                        color: #e2a5f1;
+                        .enTxt {
+                            background-image: linear-gradient(#e2a5f1, transparent 85%);
+                        }
+                    }
+                    .subtitle {
+                        opacity: 0.7;
+                    }
+                }
+            }
+        }
+        li + li {
+            margin-left: 60px;
+            @include rwd(1600) {
+                margin-left: 3.5vw;
+            }
+            @include rwd(820) {
+                margin: 25px 0 0 0;
+            }
+        }
+        .theme {
+            text-align: center;
+            color: #fff;
+            position: relative;
+            letter-spacing: 1px;
+            .twTxt {
+                font-size: 20px;
+                font-weight: bold;
+                position: absolute;
+                @include pos(tlr, -10px, 0, 0);
+                font-family: Microsoft Yahei;
+            }
+            .enTxt {
+                font-family: Impact;
+                font-size: 24px;
+                font-weight: 700;
+                text-transform: uppercase;
+                opacity: 0.4;
+                background-image: linear-gradient(#fff, transparent 85%);
+                color: transparent;
+                background-clip: text;
+                -webkit-background-clip: text;
+                overflow: hidden;
+                @include rwd(820) {
+                    opacity: 0.7;
+                }
+            }
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: #fff;
+            opacity: 0.3;
+            span + span {
+                margin-left: 10px;
+            }
+        }
+    }
+}
+
+// ===== dlBtn start =====
+.dlBtn {
+    width: 100%;
+    max-width: 1270px;
+    padding: 0 10px;
+    margin: auto;
+    @include rwd(820) {
+        padding: 20px 10px 0;
+        background: linear-gradient(180deg, transparent, #181518 20px);
+        transform: translateY(-20px);
+        position: relative;
+        z-index: 2;
+    }
+    ul {
+        display: flex;
+        flex-wrap: wrap;
+        @include rwd(650) {
+            justify-content: center;
+        }
+    }
+
+    li {
+        width: calc(100% / 3);
+        padding: 5px;
+        cursor: pointer;
+        opacity: 0.7;
+        transition: transform 0.5s;
+        @include rwd(1000) {
+            width: calc(100% / 2);
+        }
+        @include rwd(650) {
+            width: 100%;
+        }
+        @include rwd(400) {
+            padding: 1vw;
+        }
+        @include hover {
+            &:hover {
+                transform: translateY(-5px);
+                opacity: 1;
+            }
+        }
+    }
+}
+
+// ===== mvBox start =====
+.mvBox {
+    max-width: 1270px;
+    margin: auto;
+    padding: 50px 10px 0;
+    position: relative;
+    @include rwd(820) {
+        padding: 10px 10px 0;
+    }
+    &::before {
+        content: "";
+        width: 100%;
+        height: 100%;
+        background: url(../images/other/bodyBg.webp) no-repeat 90% bottom / 1000px auto;
+        position: absolute;
+        @include pos(bl, 0);
+        opacity: 0.5;
+        z-index: -1;
+    }
+    .nowtitle{
+        padding: 0 10px 10px;
+        font-size: 20px;
+        font-weight: bold;
+        color: #fff;
+    }
+    @at-root .mvList {
+        ul {
+            padding-bottom: 50px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+        li {
+            width: calc(100% / 4);
+            padding: 5px 5px 25px;
+            @include rwd(960) {
+                width: calc(100% / 3);
+            }
+            @include rwd(650) {
+                width: calc(100% / 2);
+            }
+            @include rwd(350) {
+                width: 100%;
+            }
+        }
+        .mvItem {
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.285%;
+            margin: auto;
+            background: #000 no-repeat top center / cover;
+            position: relative;
+            border-radius: 5px;
+            overflow: hidden;
+            cursor: pointer;
+            &.on {
+                background: #000;
+                .poster {
+                    &.on {
+                        z-index: -1;
+                        pointer-events: none;
+                    }
+                }
+            }
+            @include hover {
+                &:hover {
+                    .poster {
+                        background: #000;
+                        z-index: -1;
+                    }
+                }
+            }
+            .poster {
+                width: 100%;
+                height: 100%;
+                background: #000 no-repeat top center/cover;
+                position: absolute;
+                @include pos(tl, 0);
+                z-index: 2;
+                pointer-events: none;
+            }
+            video {
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+        }
+        .txtBox {
+            padding: 10px 5px;
+            color: #ccc;
+            font-size: 14px;
+            .msg {
+                padding-bottom: 5px;
+                color: rgb(252, 85, 85);
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+            .name {
+                @include txtChip(1);
+            }
+            .dvdId {
+                margin-left: 20px;
+                padding: 4px 8px;
+                border-radius: 20px;
+                background-color: rgb(252, 85, 85);
+                font-size: 12px;
+                font-weight: bold;
+                color: #fff;
+                flex-shrink: 0;
+            }
+            .title {
+                @include txtChip(2);
+            }
+        }
+    }
+
+    @at-root .footer {
+        padding: 15px 10px;
+        color: #bbb;
+        font-size: 14px;
+        background: linear-gradient(90deg, transparent, #8d3637, transparent);
+        text-align: center;
+        opacity: 0.7;
+        span {
+            @include rwd(380) {
+                display: flex;
+                flex-direction: column;
+                & + span {
+                    margin-top: 5px;
+                }
+            }
+        }
+    }
+}

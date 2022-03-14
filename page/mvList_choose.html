@@ -1,0 +1,95 @@
+<div class="mvList" id="mvList">
+    <ul>
+        <template v-for="(item,index) in mvList">
+            <li>
+                <div class="mvItem"  
+                    @mouseenter = "item.switch = true"
+                    @mouseleave = "item.switch = false"
+                    :class="{'on':item.switch}">
+                    <div class="poster" 
+                        :style="rebgi(item)"
+                        :class="{'on': isMobile()}"
+                        :alt="item.title"
+                    ></div>
+                    <video :src="item.video"
+                            v-if="item.switch || isMobile()"
+                            loop muted 
+                            playsinline
+                            :autoplay = "!isMobile()"
+                            onclick="this.play(),this.currentTime = 0"             
+                            ></video>
+                </div>
+                <div class="txtBox">
+                    <div class="msg">
+                        <div class="name" :title="item.name">{{item.name}}</div>
+                        <div class="dvdId">{{item.dvdId}}</div>
+                    </div>
+                    <p class="title" :title="item.title">{{item.title}}</p>
+                </div>
+            </li>
+        </template>
+    </ul>
+</div>
+
+<script>
+    Vue.createApp({
+        data() {
+            return {
+                // 影片列表
+                mvList: '',
+                mvSort: localStorage.getItem('nowStatus'),
+            }
+        },
+        methods: {
+            // 返回背景style
+            rebgi(data) {
+                let showImg = this.isMobile() ? '' : `background-image: url(${data.img})`;
+                return `background-image: url(${data.img})`;
+            },
+
+            // 判斷移動端
+            isMobile() {
+                var userAgentInfo = navigator.userAgent;
+                var Agents = ["Android", "iPhone", "SymbianOS", "Windows Phone", "iPad", "iPod"];
+                var flag = false;
+                for (var v = 0; v < Agents.length; v++) {
+                    if (userAgentInfo.indexOf(Agents[v]) > 0) {
+                        flag = true;
+                        break;
+                    }
+                }
+                return flag;
+            },
+
+            // 隨機初始資料
+            ranStart() {
+                let list = []
+                for (let item of mvData) {
+                    if (item.tag.includes(localStorage.getItem('nowStatus'))) {
+                        list.push(item)
+                    }
+                }
+
+                // 隨機取不重複資料
+                let doneList = [];
+                if (list.length >= 12) {
+                    done(list, 12);
+                    this.mvList = doneList;
+                } else {
+                    this.mvList = list;
+                }
+
+                function done(arr, count) {
+                    for (var i = 0; i < count; i++) {
+                        var index = Math.floor(Math.random() * arr.length);
+                        doneList.push(arr[index]);
+                        arr.splice(index, 1);
+                    }
+                }
+            },
+        },
+        mounted() {
+            this.ranStart();
+        },
+    }).mount("#mvList");
+</script>
