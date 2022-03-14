@@ -40,7 +40,7 @@ $(window).resize(function(){
     $('#sortMenu').removeClass('on')
 })
 
-mvInclude('/page/mvList_choose.html'); 
+mvInclude('../page/mvList_choose.html'); 
 function mvInclude(src) {
     $.ajax({
         url: src,
