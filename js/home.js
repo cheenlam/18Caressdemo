@@ -37,7 +37,7 @@ $(window).resize(function(){
 })
 
 localStorage.setItem('nowStatus','');
-mvInclude('../page/mvList_all.html');
+mvInclude('page/mvList_all.html');
 function mvInclude(src) {
     $.ajax({
         url: src,
