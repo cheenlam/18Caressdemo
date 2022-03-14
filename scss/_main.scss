@@ -25,17 +25,15 @@ body {
         align-items: center;
         justify-content: space-between;
         overflow: hidden;
-
         .txtLogo {
             a {
                 width: 130px;
                 height: 28px;
-                background: url("../images/other/logo.png") no-repeat center / cover;
+                background: url("..../images/other/logo.png") no-repeat center / cover;
                 @include imgToTxt();
                 display: inline-block;
             }
         }
-
         .menuBar {
             width: 50%;
             height: 100%;
@@ -47,7 +45,8 @@ body {
             align-items: center;
             justify-content: flex-end;
             position: absolute;
-            @include pos(tr, 0);
+            @include pos(tr,
+            0);
             transition: 0.5s;
             cursor: pointer;
             @include rwd(820) {
@@ -61,7 +60,6 @@ body {
                 align-items: center;
                 justify-content: flex-end;
                 position: relative;
-
                 span {
                     width: 85%;
                     height: 3px;
@@ -82,19 +80,25 @@ body {
                     transition: 0.5s;
                 }
                 &::before {
-                    @include pos(tbl, 0, 18px, 0);
+                    @include pos(tbl,
+                    0,
+                    18px,
+                    0);
                 }
                 &::after {
-                    @include pos(tbl, 18px, 0, 0);
+                    @include pos(tbl,
+                    18px,
+                    0,
+                    0);
                 }
-
                 &.on {
                     span {
                         opacity: 0;
                     }
                     &::before,
                     &::after {
-                        @include pos(tbl, 0);
+                        @include pos(tbl,
+                        0);
                     }
                     &::before {
                         transform: rotate(45deg);
@@ -106,7 +110,6 @@ body {
             }
         }
     }
-
     // imgList start (圖片展示)
     .imgList {
         height: 550px;
@@ -125,7 +128,6 @@ body {
             left: 0;
             z-index: 2;
         }
-
         &::after {
             content: "";
             width: 30%;
@@ -140,7 +142,8 @@ body {
             width: 100%;
             height: 100%;
             position: absolute;
-            @include pos(tl, 0);
+            @include pos(tl,
+            0);
             background: no-repeat center top / cover;
             color: #fff;
             opacity: 0;
@@ -153,7 +156,6 @@ body {
             }
         }
     }
-
     // actressMenu (女優分類)
     @at-root .actressMenu {
         width: 100%;
@@ -161,7 +163,10 @@ body {
         padding-right: 10px;
         margin: auto;
         position: absolute;
-        @include pos(tlr, 50px, 0, 0);
+        @include pos(tlr,
+        50px,
+        0,
+        0);
         text-align: right;
         z-index: 3;
         font-weight: 600;
@@ -189,7 +194,6 @@ body {
             }
         }
     }
-
     // sortMenu start (類別分類)
     @at-root .sortMenu {
         padding: 15px 10px;
@@ -202,7 +206,8 @@ body {
             height: 100vh;
             padding: 0;
             position: fixed;
-            @include pos(tr, 0);
+            @include pos(tr,
+            0);
             transform: translateY(0) translateX(100%);
             display: flex;
             justify-content: flex-end;
@@ -219,7 +224,6 @@ body {
                 }
             }
         }
-
         .closeBg {
             width: 100%;
             height: 100%;
@@ -239,7 +243,8 @@ body {
             height: 35px;
             border: 2px solid #fff;
             position: absolute;
-            @include pos(tr, 10px);
+            @include pos(tr,
+            10px);
             border-radius: 50%;
             z-index: 3;
             opacity: 0.6;
@@ -256,7 +261,8 @@ body {
                 margin: auto;
                 background-color: #fff;
                 position: absolute;
-                @include pos(tbrl, 0);
+                @include pos(tbrl,
+                0);
             }
             &::before {
                 transform: rotate(45deg);
@@ -265,12 +271,11 @@ body {
                 transform: rotate(-45deg);
             }
         }
-
         .menu {
             @include rwd(820) {
                 width: 40%;
                 min-width: 230px;
-                background: url(../images/other/menuImg.jpg) no-repeat center top / cover;
+                background: url(..../images/other/menuImg.jpg) no-repeat center top / cover;
                 box-shadow: -2px 0 6px rgba(148, 149, 250, 0.6);
                 overflow-y: auto;
                 transform: translateX(100%);
@@ -281,7 +286,6 @@ body {
                 }
             }
         }
-
         ul {
             width: 100%;
             max-width: 1200px;
@@ -318,7 +322,7 @@ body {
                 }
             }
         }
-        li + li {
+        li+li {
             margin-left: 60px;
             @include rwd(1600) {
                 margin-left: 3.5vw;
@@ -336,7 +340,10 @@ body {
                 font-size: 20px;
                 font-weight: bold;
                 position: absolute;
-                @include pos(tlr, -10px, 0, 0);
+                @include pos(tlr,
+                -10px,
+                0,
+                0);
                 font-family: Microsoft Yahei;
             }
             .enTxt {
@@ -355,12 +362,11 @@ body {
                 }
             }
         }
-
         .subtitle {
             font-size: 14px;
             color: #fff;
             opacity: 0.3;
-            span + span {
+            span+span {
                 margin-left: 10px;
             }
         }
@@ -387,7 +393,6 @@ body {
             justify-content: center;
         }
     }
-
     li {
         width: calc(100% / 3);
         padding: 5px;
@@ -425,13 +430,14 @@ body {
         content: "";
         width: 100%;
         height: 100%;
-        background: url(../images/other/bodyBg.webp) no-repeat 90% bottom / 1000px auto;
+        background: url(..../images/other/bodyBg.webp) no-repeat 90% bottom / 1000px auto;
         position: absolute;
-        @include pos(bl, 0);
+        @include pos(bl,
+        0);
         opacity: 0.5;
         z-index: -1;
     }
-    .nowtitle{
+    .nowtitle {
         padding: 0 10px 10px;
         font-size: 20px;
         font-weight: bold;
@@ -488,7 +494,8 @@ body {
                 height: 100%;
                 background: #000 no-repeat top center/cover;
                 position: absolute;
-                @include pos(tl, 0);
+                @include pos(tl,
+                0);
                 z-index: 2;
                 pointer-events: none;
             }
@@ -529,7 +536,6 @@ body {
             }
         }
     }
-
     @at-root .footer {
         padding: 15px 10px;
         color: #bbb;
@@ -541,7 +547,7 @@ body {
             @include rwd(380) {
                 display: flex;
                 flex-direction: column;
-                & + span {
+                &+span {
                     margin-top: 5px;
                 }
             }
