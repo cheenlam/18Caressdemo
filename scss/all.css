@@ -326,15 +326,17 @@ body {
     justify-content: flex-end;
     background: transparent;
     opacity: 0;
+    transition: 0.3s 0.3s;
   }
   .sortMenu.on {
     transform: translateX(0);
     opacity: 1;
-    transition: transform 0.5s;
+    transition: 0.5s;
   }
 }
 @media screen and (max-width: 820px) and (max-width: 820px) {
   .sortMenu.on .menu {
+    transition: 0.5s;
     transform: translateX(0%);
   }
 }
