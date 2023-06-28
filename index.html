@@ -15,8 +15,8 @@
     
     <!-- ======= 標題 & 收藏夾 ======= -->
     <title>成人影視平台 | 熱門影片</title>
-    <link rel="icon" href="images/other/icoLogo.ico" type="image/x-icon">
-    <link rel="shortcut icon" href="images/other/icoLogo.ico" type="image/x-icon">
+    <link rel="icon" href="images/other/icoLogo.png" type="image/x-icon">
+    <link rel="shortcut icon" href="images/other/icoLogo.png" type="image/x-icon">
 
 
     <!-- ======= KEYWORD ======= -->
@@ -75,19 +75,9 @@
         <!-- ===== dlBtn start ===== -->
         <div class="dlBtn">
             <ul>
-                <li>
-                    <a href="https://ht2s7.xiyiwy.com:1818/bfmv9" target="_blank">
-                        <img src="images/download/dlBtn_01.webp" alt="Download Ios">
-                    </a>
-                </li>
-                <li>
-                    <a href="" target="_blank">
-                        <img src="images/download/dlBtn_02.webp" alt="Download Android">
-                    </a>
-                </li>
-                <li>
-                    <a href="http://533131.com/" target="_blank">
-                        <img src="images/download/dlBtn_03.webp" alt="Link Web page">
+                <li v-for="(item,index) in linkBtn">
+                    <a :href="item.href">
+                        <img :src="item.src" alt="item.alt">
                     </a>
                 </li>
             </ul>
@@ -138,6 +128,9 @@
                     nowList:'熱門影片',
                     menuSw:false,
 
+                    // 影片列表
+                    mvList: [],
+
                     // 主要banner
                     banner: {
                         num: 0,
@@ -178,8 +171,12 @@
                         {title:"熟女人妻",en:"Milf & Wife",sub_01:"寂寞人妻",sub_02:"等你來愛",selData: 12}
                     ],
 
-                    // 影片列表
-                    mvList: [],
+                    // 連結按鈕
+                    linkBtn:[
+                        {href:'javasceipt:;',alt:'Download IOS',src:'images/download/dlBtn_01.webp'},
+                        {href:'javasceipt:;',alt:'Download Android',src:'images/download/dlBtn_02.webp'},
+                        {href:'https://funsgirl.cc/',alt:'Link Web page',src:'images/download/dlBtn_03.webp'}
+                    ]
                 }
             },
             methods: {
