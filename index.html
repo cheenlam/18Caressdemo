@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content='upgrade-insecure-requests'>
+    <!-- <meta http-equiv="Content-Security-Policy" content='upgrade-insecure-requests'> -->
     <script src="js/vue3.js"></script>
     <script src="js/axios.js"></script>
     <link rel="stylesheet" href="scss/all.css">
@@ -36,6 +36,7 @@
 
 <body>
     <div class="indexBox" id="app">
+        <meta http-equiv="Content-Security-Policy" content='upgrade-insecure-requests' v-if="isHttp">
         <!-- ===== fullShow start ===== -->
         <div class="fullShow">
             <div class="top">
@@ -127,6 +128,7 @@
                 return {
                     nowList:'熱門影片',
                     menuSw:false,
+                    isHttp:false,
 
                     // 影片列表
                     mvList: [],
@@ -245,7 +247,8 @@
 
             },
             created (){
-                this.createVod("index");
+                if(document.location.protocol == 'https:'){ isHttp = true;}
+                this.$nextTick(() => { this.createVod("index");})           
             },
             mounted() {
                 window.onresize = ()=>{this.menuSw = false;}
