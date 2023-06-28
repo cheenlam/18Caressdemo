@@ -249,7 +249,7 @@
             },
 
             created (){
-                if(document.location.protocol == 'http:'){ 
+                if(document.location.protocol == 'https:'){ 
                     let meta = document.createElement('meta');
                     meta.content = 'upgrade-insecure-requests';
                     meta.httpEquiv = 'Content-Security-Policy';
