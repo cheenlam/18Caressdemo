@@ -187,31 +187,29 @@
                     return `background-image: url(${url}); --bgpos:${pos};`;
                 },
                 rebgi(data) {
-                    let showImg = this.isMobile() ? '' : `background-image: url(${data})`;
-                    return `background-image: url(http://${data})`;
+                    return `background-image: url(${data})`;
                 },
                 // 創立影片
                 createVod(style){
                     let tagVal = '';
                     let sortType = '';
-                    
+                    let nowTitle = '熱門影片';
                     switch(style){
-                        case 0: tagVal = '波多野結衣'; this.nowList = '波多野結衣'; break;
-                        case 1: tagVal = '蜜美杏'; this.nowList = '蜜美杏'; break;
-                        case 2: tagVal = '橋本ありな'; this.nowList = '橋本ありな'; break;
-                        case 3: tagVal = '深田えいみ'; this.nowList = '深田えいみ'; break;
-                        case 4: tagVal = '小早川怜子'; this.nowList = '小早川怜子'; break;
-                        case 5: tagVal = '君島みお'; this.nowList = '君島みお'; break;
-                        case 6: tagVal = '大槻ひびき'; this.nowList = '大槻ひびき'; break;
-                        case 7: tagVal = '松下紗栄子'; this.nowList = '松下紗栄子'; break;
-                        case 8: sortType = '7'; this.nowList = '素人影片'; break;
-                        case 9: sortType = '3'; this.nowList = '西洋歐美'; break;
-                        case 10: sortType = '4'; this.nowList = '裏番動漫'; break;
-                        case 11: tagVal = '制服'; this.nowList = '制服誘惑'; break;
-                        case 12: tagVal = '人妻'; this.nowList = '熟女人妻'; break;
-                        default: this.nowList = '熱門影片';
+                        case 0: tagVal = '波多野結衣'; nowTitle = '波多野結衣'; break;
+                        case 1: tagVal = '蜜美杏'; nowTitle = '蜜美杏'; break;
+                        case 2: tagVal = '橋本ありな'; nowTitle = '橋本ありな'; break;
+                        case 3: tagVal = '深田えいみ'; nowTitle = '深田えいみ'; break;
+                        case 4: tagVal = '小早川怜子'; nowTitle = '小早川怜子'; break;
+                        case 5: tagVal = '君島みお'; nowTitle = '君島みお'; break;
+                        case 6: tagVal = '大槻ひびき'; nowTitle = '大槻ひびき'; break;
+                        case 7: tagVal = '松下紗栄子'; nowTitle = '松下紗栄子'; break;
+                        case 8: sortType = '7'; nowTitle = '素人影片'; break;
+                        case 9: sortType = '3'; nowTitle = '西洋歐美'; break;
+                        case 10: sortType = '4'; nowTitle = '裏番動漫'; break;
+                        case 11: tagVal = '制服'; nowTitle = '制服誘惑'; break;
+                        case 12: tagVal = '人妻'; nowTitle = '熟女人妻'; break;
                     }
-                    axios.get("http://206.233.132.3/api.php/external/tagsel",{ params:{key: "588THTUoI",tag: tagVal,type:sortType} }).then((r) => ( this.mvList = r.data));
+                    axios.get("http://206.233.132.3/api.php/external/tagsel",{ params:{key: "588THTUoI",tag: tagVal,type:sortType} }).then((r) => { this.mvList = r.data; this.nowList = nowTitle;});
                 },
                 // 綁定videojs
                 showVod(idx){
