@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <meta http-equiv="Content-Security-Policy" content='upgrade-insecure-requests'> -->
+
+
     <script src="js/vue3.js"></script>
     <script src="js/axios.js"></script>
     <link rel="stylesheet" href="scss/all.css">
@@ -36,7 +38,6 @@
 
 <body>
     <div class="indexBox" id="app">
-        <meta http-equiv="Content-Security-Policy" content='upgrade-insecure-requests' v-if="isHttp">
         <!-- ===== fullShow start ===== -->
         <div class="fullShow">
             <div class="top">
@@ -246,8 +247,14 @@
                 },
 
             },
+
             created (){
-                if(document.location.protocol == 'https:'){ isHttp = true;}
+                if(document.location.protocol == 'https:'){ 
+                    let meta = document.createElement('meta');
+                    meta.content = 'upgrade-insecure-requests';
+                    meta.httpEquiv = 'Content-Security-Policy';
+                    document.querySelector('head')[0].appendChild(meta);
+                }
                 this.$nextTick(() => { this.createVod("index");})           
             },
             mounted() {
