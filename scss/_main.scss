@@ -26,13 +26,14 @@ body {
         justify-content: space-between;
         overflow: hidden;
         .txtLogo {
-            a {
-                width: 130px;
-                height: 28px;
-                background: url("../images/other/logo.png") no-repeat center / cover;
-                @include imgToTxt();
-                display: inline-block;
-            }
+            margin: 5px 0;
+            width: 130px;
+            height: 28px;
+            background: url("../images/other/logo.png") no-repeat center / cover;
+            @include imgToTxt();
+            display: inline-block;
+            cursor: pointer;
+           
         }
         .menuBar {
             width: 50%;
@@ -475,18 +476,8 @@ body {
             &.on {
                 background: #000;
                 .poster {
-                    &.on {
-                        z-index: -1;
-                        pointer-events: none;
-                    }
-                }
-            }
-            @include hover {
-                &:hover {
-                    .poster {
-                        background: #000;
-                        z-index: -1;
-                    }
+                    opacity: 0;
+                    transition: opacity .5s;
                 }
             }
             .poster {
@@ -494,12 +485,11 @@ body {
                 height: 100%;
                 background: #000 no-repeat top center/cover;
                 position: absolute;
-                @include pos(tl,
-                0);
+                @include pos(tl,0);
                 z-index: 2;
                 pointer-events: none;
             }
-            video {
+            .video-js {
                 width: 100%;
                 height: 100%;
                 position: absolute;
@@ -522,7 +512,7 @@ body {
                 @include txtChip(1);
             }
             .dvdId {
-                margin-left: 20px;
+                // margin-left: 20px;
                 padding: 4px 8px;
                 border-radius: 20px;
                 background-color: rgb(252, 85, 85);
