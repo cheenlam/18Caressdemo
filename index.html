@@ -249,11 +249,11 @@
             },
 
             created (){
-                if(document.location.protocol == 'https:'){ 
+                if(document.location.protocol == 'http:'){ 
                     let meta = document.createElement('meta');
                     meta.content = 'upgrade-insecure-requests';
                     meta.httpEquiv = 'Content-Security-Policy';
-                    document.querySelector('head')[0].appendChild(meta);
+                    document.getElementsByTagName('head')[0].appendChild(meta);
                 }
                 this.$nextTick(() => { this.createVod("index");})           
             },
