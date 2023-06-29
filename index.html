@@ -11,10 +11,10 @@
     <script src="js/axios.js"></script>
     <link rel="stylesheet" href="scss/all.css">
 
-     <!-- ======= videoJs ======= -->
-     <script src="js/videoJs.js"></script>
-     <link rel="stylesheet" href="scss/video-js.css">
-    
+    <!-- ======= videoJs ======= -->
+    <script src="js/videoJs.js"></script>
+    <link rel="stylesheet" href="scss/video-js.css">
+
     <!-- ======= 標題 & 收藏夾 ======= -->
     <title>影視平台 | 熱門影片</title>
     <link rel="icon" href="images/other/icoLogo.png" type="image/x-icon">
@@ -26,7 +26,7 @@
         content="18+,SWAG,Porn,免費A片,JAV,FANZA,DMM,國產無碼,日韓精品,歐美激情,裏番動漫,自拍偷拍,制服絲襪,強姦亂倫,人妻熟女,綑綁調教,91國產,swag外流,網紅主播">
     <meta name="description"
         :content="國產無碼、日韓精品、歐美激情、裏番動漫、自拍偷拍、制服絲襪、強姦亂倫、人妻熟女、綑綁調教、91國產、swag外流、網紅主播，您想要的我這都有，百萬片源給您好看!" /> -->
-        
+
     <!-- ======= Open Graph ======= -->
     <!-- <meta property="og:type" content="video">
     <meta property="og:image" content="https://i.imgur.com/4I8HC5k.jpg">
@@ -48,12 +48,14 @@
             </div>
             <!-- imgList start (圖片展示) -->
             <div class="imgList">
-                <div v-for="(item,index) in banner.val" :style="reBannerStyle(item.url,item.pos)" :class="{'on': index == banner.num}"></div>
+                <div v-for="(item,index) in banner.val" :style="reBannerStyle(item.url,item.pos)"
+                    :class="{'on': index == banner.num}"></div>
             </div>
             <!-- actressMenu (女優分類) -->
             <div class="actressMenu">
                 <ul>
-                    <li v-for="(item,index) in actor" @mouseenter = "banner.num = item.selData" @click="createVod(item.selData)">{{item.name}}</li>
+                    <li v-for="(item,index) in actor" @mouseenter="banner.num = item.selData"
+                        @click="createVod(item.selData)">{{item.name}}</li>
                 </ul>
             </div>
             <!-- sortMenu start (類別分類) -->
@@ -62,7 +64,8 @@
                 <div class="closeBtn" @click="menuSw = false"></div>
                 <div class="menu">
                     <ul>
-                        <li v-for="(item,index) in sort" @mouseenter = "banner.num = item.selData" @click="createVod(item.selData),menuSw = false">
+                        <li v-for="(item,index) in sort" @mouseenter="banner.num = item.selData"
+                            @click="createVod(item.selData),menuSw = false">
                             <div class="theme">
                                 <h2 class="twTxt">{{item.title}}</h2>
                                 <h3 class="enTxt">{{item.en}}</h3>
@@ -90,21 +93,28 @@
             <div class="nowtitle">正在播放 {{nowList}}</div>
             <div class="mvList" id="mvList">
                 <ul>
-                    <template v-for="(item,index) in mvList" :key="item.vod_title">
+                    <template v-for="(item,index) in mvList" :key="item.vod_number">
                         <li>
-                            <div class="mvItem"  
-                                @mouseenter = "item.switch = true,showVod(index)"
-                                @mouseleave = "item.switch = false,delVod(index)"
-                                :class="{'on':item.switch}">
-                                <div class="poster" 
-                                    :style="rebgi(item.vod_pic)"
-                                    :class="{'on': isMobile()}"
-                                    :alt="item.vod_title"
-                                ></div>
+                            <div class="mvItem" @mouseenter="item.switch = true,showVod(index)"
+                                @mouseleave="item.switch = false,delVod(index)" :class="{'on':item.switch}">
+                                <div class="poster" :style="rebgi(item.vod_pic)" :alt="item.vod_title"></div>
 
-                                <video  class="video-js" preload='auto' webkit-playsinline="true" playsinline="true" x5-video-player-type='h5-page' autoplay loop muted>
-                                    <source :src="item.vod_play_url" type="application/x-mpegURL">
-                                </video>
+                                <!-- 移動端影片 -->
+                                <template v-if="isMobile()">
+                                    <video class="video-js" preload='auto' webkit-playsinline="true" playsinline="true"
+                                        x5-video-player-type='h5-page' autoplay loop muted  v-if="item.switch">
+                                        <source :src="item.vod_play_url" type="application/x-mpegURL">
+                                    </video>
+                                </template>
+                                
+                                <!-- PC端影片 -->
+                                <template v-if="!isMobile()">
+                                    <video class="video-js" preload='auto' webkit-playsinline="true" playsinline="true"
+                                        x5-video-player-type='h5-page' autoplay loop muted >
+                                        <source :src="item.vod_play_url" type="application/x-mpegURL">
+                                    </video>
+                                </template>
+                                
                             </div>
                             <div class="txtBox">
                                 <div class="msg">
@@ -127,13 +137,13 @@
         Vue.createApp({
             data() {
                 return {
-                    nowList:'熱門影片',
-                    menuSw:false,
-                    isHttp:false,
-
+                    nowList: '熱門影片',
+                    menuSw: false,
+                    isHttp: false,
+                    
                     // 影片列表
                     mvList: [],
-
+  
                     // 主要banner
                     banner: {
                         num: 0,
@@ -155,47 +165,47 @@
                     },
 
                     // 選擇menu(演員)
-                    actor:[
-                        {name:"波多野結衣",selData: 0},
-                        {name:"蜜美杏",selData: 1},
-                        {name:"橋本ありな",selData: 2},
-                        {name:"深田えいみ",selData: 3},
-                        {name:"小早川怜子",selData: 4},
-                        {name:"君島みお",selData: 5},
-                        {name:"大槻ひびき",selData: 6},
-                        {name:"松下紗栄子",selData: 7}
+                    actor: [
+                        { name: "波多野結衣", selData: 0 },
+                        { name: "蜜美杏", selData: 1 },
+                        { name: "橋本ありな", selData: 2 },
+                        { name: "深田えいみ", selData: 3 },
+                        { name: "小早川怜子", selData: 4 },
+                        { name: "君島みお", selData: 5 },
+                        { name: "大槻ひびき", selData: 6 },
+                        { name: "松下紗栄子", selData: 7 }
                     ],
                     // 選擇menu(類別)
-                    sort:[
-                        {title:"素人影片",en:"Amateur",sub_01:"鄰家女孩",sub_02:"真實上演",selData: 8},
-                        {title:"西洋歐美",en:"Western",sub_01:"異國之戀",sub_02:"金髮尤物",selData: 9},
-                        {title:"裏番動漫",en:"Anime",sub_01:"最熱動漫",sub_02:"火速上線",selData: 10},
-                        {title:"制服誘惑",en:"Uniform",sub_01:"理性慾望",sub_02:"相互對峙",selData: 11},
-                        {title:"熟女人妻",en:"Milf & Wife",sub_01:"寂寞人妻",sub_02:"等你來愛",selData: 12}
+                    sort: [
+                        { title: "素人影片", en: "Amateur", sub_01: "鄰家女孩", sub_02: "真實上演", selData: 8 },
+                        { title: "西洋歐美", en: "Western", sub_01: "異國之戀", sub_02: "金髮尤物", selData: 9 },
+                        { title: "裏番動漫", en: "Anime", sub_01: "最熱動漫", sub_02: "火速上線", selData: 10 },
+                        { title: "制服誘惑", en: "Uniform", sub_01: "理性慾望", sub_02: "相互對峙", selData: 11 },
+                        { title: "熟女人妻", en: "Milf & Wife", sub_01: "寂寞人妻", sub_02: "等你來愛", selData: 12 }
                     ],
 
                     // 連結按鈕
-                    linkBtn:[
-                        {href:'https://www.baline886.com',alt:'Download IOS',src:'images/download/dlBtn_01.webp'},
-                        {href:'https://www.baline887.com',alt:'Download Android',src:'images/download/dlBtn_02.webp'},
-                        {href:'https://www.baline888.com',alt:'Link Web page',src:'images/download/dlBtn_03.webp'}
+                    linkBtn: [
+                        { href: 'https://www.baline886.com', alt: 'Download IOS', src: 'images/download/dlBtn_01.webp' },
+                        { href: 'https://www.baline887.com', alt: 'Download Android', src: 'images/download/dlBtn_02.webp' },
+                        { href: 'https://www.baline888.com', alt: 'Link Web page', src: 'images/download/dlBtn_03.webp' }
                     ]
                 }
             },
             methods: {
                 // 返回背景style
-                reBannerStyle(url,pos) {
+                reBannerStyle(url, pos) {
                     return `background-image: url(${url}); --bgpos:${pos};`;
                 },
                 rebgi(data) {
                     return `background-image: url(${data})`;
                 },
                 // 創立影片
-                createVod(style){
+                createVod(style) {
                     let tagVal = '';
                     let sortType = '';
                     let nowTitle = '熱門影片';
-                    switch(style){
+                    switch (style) {
                         case 0: tagVal = '波多野結衣'; nowTitle = '波多野結衣'; break;
                         case 1: tagVal = '蜜美杏'; nowTitle = '蜜美杏'; break;
                         case 2: tagVal = '橋本ありな'; nowTitle = '橋本ありな'; break;
@@ -210,27 +220,31 @@
                         case 11: tagVal = '制服'; nowTitle = '制服誘惑'; break;
                         case 12: tagVal = '人妻'; nowTitle = '熟女人妻'; break;
                     }
-                    axios.get("https://funsgirl.cc/api.php/external/tagsel",{ params:{key: "588THTUoI",tag: tagVal,type:sortType} }).then((r) => { this.mvList = r.data; this.nowList = nowTitle;});
+                    axios.get("https://funsgirl.cc/api.php/external/tagsel", { params: { key: "588THTUoI", tag: tagVal, type: sortType } }).then((r) => { this.mvList = r.data; this.nowList = nowTitle; });
                 },
                 // 綁定videojs
-                showVod(idx){
+                showVod(idx) {
                     this.$nextTick(() => {
-                        let vod = document.querySelectorAll(".video-js");
-                        videojs(vod[idx]);
-                    })        
+                        if (!this.isMobile()){
+                            let vod = document.querySelectorAll(".video-js");
+                            videojs(vod[idx]);
+                        }      
+                    })
                 },
                 // 移除videojs,並賦予原先的參數
-                delVod(idx){
+                delVod(idx) {
                     this.$nextTick(() => {
-                        let vod = document.querySelectorAll(".video-js");
-                        videojs(vod[idx]).dispose();
-                        let itemList = document.querySelectorAll('#mvList .mvItem');
-                        let template = document.createElement('template');
-                        template.innerHTML = `<video  class="video-js" preload='auto' webkit-playsinline="true" playsinline="true" x5-video-player-type='h5-page' autoplay loop muted>
-                                                <source src="${this.mvList[idx].vod_play_url}" type="application/x-mpegURL">
-                                             </video>`;
-                        itemList[idx].appendChild(template.content.lastChild)
-                    })  
+                        if (!this.isMobile()){
+                            let vod = document.querySelectorAll(".video-js");
+                            videojs(vod[idx]).dispose();
+                            let itemList = document.querySelectorAll('#mvList .mvItem');
+                            let template = document.createElement('template');
+                            template.innerHTML = `<video  class="video-js" preload='auto' webkit-playsinline="true" playsinline="true" x5-video-player-type='h5-page' autoplay loop muted>
+                                            <source src="${this.mvList[idx].vod_play_url}" type="application/x-mpegURL">
+                                            </video>`;
+                            itemList[idx].appendChild(template.content.lastChild);
+                        }      
+                    })
                 },
                 // 判斷移動端
                 isMobile() {
@@ -248,19 +262,20 @@
 
             },
 
-            created (){
-                if(document.location.protocol == 'https:'){ 
+            created() {
+                if (document.location.protocol == 'https:') {
                     let meta = document.createElement('meta');
                     meta.content = 'upgrade-insecure-requests';
                     meta.httpEquiv = 'Content-Security-Policy';
                     document.getElementsByTagName('head')[0].appendChild(meta);
                 }
-                this.$nextTick(() => { this.createVod("index");})           
+                this.$nextTick(() => { this.createVod("index"); })
             },
             mounted() {
-                window.onresize = ()=>{this.menuSw = false;}
+                window.onresize = () => { this.menuSw = false; }
             },
         }).mount("#app");
     </script>
 </body>
+
 </html>

@@ -152,7 +152,7 @@ body {
   padding-right: 10px;
   transform: translateX(100%);
   opacity: 0;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), rgb(192, 64, 64));
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.7), rgb(192, 64, 64));
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -321,7 +321,7 @@ body {
     position: fixed;
     top: 0;
     right: 0;
-    transform: translateY(0) translateX(100%);
+    transform: rotate(0) translateY(0) translateX(100%);
     display: flex;
     justify-content: flex-end;
     background: transparent;
@@ -337,7 +337,7 @@ body {
 @media screen and (max-width: 820px) and (max-width: 820px) {
   .sortMenu.on .menu {
     transition: 0.5s;
-    transform: translateX(0%);
+    transform: rotate(0) translateX(0%);
   }
 }
 .sortMenu .closeBg {
@@ -399,7 +399,7 @@ body {
     background: url(../images/other/menuImg.jpg) no-repeat center top/cover;
     box-shadow: -2px 0 6px rgba(148, 149, 250, 0.6);
     overflow-y: auto;
-    transform: translateX(100%);
+    transform: rotate(0) translateX(100%);
     transition: 0.5s 0.1s;
     position: relative;
   }
