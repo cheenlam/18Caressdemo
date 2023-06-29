@@ -96,7 +96,7 @@
                         <li>
                             <div class="mvItem" @mouseenter="item.switch = true,showVod(index)"
                                 @mouseleave="item.switch = false,delVod(index)" :class="{'on':item.switch}">
-                                <div class="poster" :style="rebgi(item.vod_pic)" :alt="item.vod_title"></div>
+                                <div class="poster" :style="rebgi(item.vod_pic)" :alt="item.vod_name"></div>
 
                                 <!-- 移動端影片 -->
                                 <template v-if="isMobile()">
@@ -117,9 +117,9 @@
                             </div>
                             <div class="txtBox">
                                 <div class="msg">
-                                    <div class="dvdId">{{item.vod_number == ''? '裏番動漫' : item.vod_number}}</div>
+                                    <div class="vodSort">{{nowList}}</div>
                                 </div>
-                                <p class="title" :title="item.vod_title">{{item.vod_title}}</p>
+                                <p class="title" :title="item.vod_name">{{item.vod_name}}</p>
                             </div>
                         </li>
                     </template>
