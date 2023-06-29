@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <meta http-equiv="Content-Security-Policy" content='upgrade-insecure-requests'> -->
 
-
     <script src="js/vue3.js"></script>
     <script src="js/axios.js"></script>
     <link rel="stylesheet" href="scss/all.css">
@@ -118,8 +117,7 @@
                             </div>
                             <div class="txtBox">
                                 <div class="msg">
-                                    <div class="dvdId" v-if="item.vod_number !='' ">{{item.vod_number}}</div>
-                                    <div class="dvdId" v-if="item.vod_number =='' ">裏番動漫</div>
+                                    <div class="dvdId">{{item.vod_number == ''? '裏番動漫' : item.vod_number}}</div>
                                 </div>
                                 <p class="title" :title="item.vod_title">{{item.vod_title}}</p>
                             </div>
