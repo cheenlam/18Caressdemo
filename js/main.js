@@ -188,6 +188,8 @@ Vue.createApp({
     },
 
     created() {
+        console.log(document.referrer);
+        // window.location.href= 'https://www.june110.com';
         if (document.location.protocol == 'https:') {
             let meta = document.createElement('meta');
             meta.content = 'upgrade-insecure-requests';
