@@ -36,96 +36,98 @@
 
 <body>
     <div class="indexBox" id="app">
-        <!-- ===== fullShow start ===== -->
-        <div class="fullShow">
-            <div class="top">
-                <h1 class="txtLogo" alt="txtLogo" @click="createVod()">18caress</h1>
-                <div class="menuBar">
-                    <div class="icon" @click="menuSw = true"><span></span></div>
+        <div v-if="blockade">
+            <!-- ===== fullShow start ===== -->
+            <div class="fullShow">
+                <div class="top">
+                    <h1 class="txtLogo" @click="createVod()">18caress</h1>
+                    <div class="menuBar">
+                        <div class="icon" @click="menuSw = true"><span></span></div>
+                    </div>
                 </div>
-            </div>
-            <!-- imgList start (圖片展示) -->
-            <div class="imgList">
-                <div v-for="(item,index) in banner.val" :style="reBannerStyle(item.url,item.pos)"
-                    :class="{'on': index == banner.num}"></div>
-            </div>
-            <!-- actressMenu (女優分類) -->
-            <div class="actressMenu">
-                <ul>
-                    <li v-for="(item,index) in actor" @mouseenter="banner.num = item.selData"
-                        @click="createVod(item.selData)">{{item.name}}</li>
-                </ul>
-            </div>
-            <!-- sortMenu start (類別分類) -->
-            <div class="sortMenu" :class="{'on': menuSw}">
-                <div class="closeBg" @click="menuSw = false"></div>
-                <div class="closeBtn" @click="menuSw = false"></div>
-                <div class="menu">
+                <!-- imgList start (圖片展示) -->
+                <div class="imgList">
+                    <div v-for="(item,index) in banner.val" :style="reBannerStyle(item.url,item.pos)"
+                        :class="{'on': index == banner.num}"></div>
+                </div>
+                <!-- actressMenu (女優分類) -->
+                <div class="actressMenu">
                     <ul>
-                        <li v-for="(item,index) in sort" @mouseenter="banner.num = item.selData"
-                            @click="createVod(item.selData),menuSw = false">
-                            <div class="theme">
-                                <h2 class="twTxt">{{item.title}}</h2>
-                                <h3 class="enTxt">{{item.en}}</h3>
-                            </div>
-                            <div class="subtitle"><span>{{item.sub_01}}</span><span>{{item.sub_02}}</span></div>
-                        </li>
+                        <li v-for="(item,index) in actor" @mouseenter="banner.num = item.selData"
+                            @click="createVod(item.selData)">{{item.name}}</li>
                     </ul>
                 </div>
-            </div>
-        </div>
-
-        <!-- ===== dlBtn start ===== -->
-        <div class="dlBtn">
-            <ul>
-                <li v-for="(item,index) in linkBtn">
-                    <a :href="item.href" target="_blank" :alt="item.alt">
-                        <img :src="item.src">
-                    </a>
-                </li>
-            </ul>
-        </div>
-
-        <!-- ===== mvBox start ===== -->
-        <div class="mvBox">
-            <div class="nowtitle">正在播放 {{nowList}}</div>
-            <div class="mvList" id="mvList">
-                <ul>
-                    <template v-for="(item,index) in mvList" :key="banner.num+index">
-                        <li>
-                            <div class="mvItem" @mouseenter="item.switch = true,showVod(index)"
-                                @mouseleave="item.switch = false,delVod(index)" :class="{'on':item.switch}">
-                                <div class="poster" :style="rebgi(item.vod_pic)" :alt="item.vod_name"></div>
-
-                                <!-- 移動端影片 -->
-                                <template v-if="isMobile()">
-                                    <video class="video-js" preload='auto' webkit-playsinline="true" playsinline="true"
-                                        x5-video-player-type='h5-page' autoplay loop muted  v-if="item.switch">
-                                        <source :src="item.vod_play_url" type="application/x-mpegURL">
-                                    </video>
-                                </template>
-                                
-                                <!-- PC端影片 -->
-                                <template v-if="!isMobile()">
-                                    <video class="video-js" preload='auto' webkit-playsinline="true" playsinline="true"
-                                        x5-video-player-type='h5-page' autoplay loop muted >
-                                        <source :src="item.vod_play_url" type="application/x-mpegURL">
-                                    </video>
-                                </template>
-                                
-                            </div>
-                            <div class="txtBox">
-                                <div class="msg">
-                                    <div class="vodSort">{{nowList}}</div>
+                <!-- sortMenu start (類別分類) -->
+                <div class="sortMenu" :class="{'on': menuSw}">
+                    <div class="closeBg" @click="menuSw = false"></div>
+                    <div class="closeBtn" @click="menuSw = false"></div>
+                    <div class="menu">
+                        <ul>
+                            <li v-for="(item,index) in sort" @mouseenter="banner.num = item.selData"
+                                @click="createVod(item.selData),menuSw = false">
+                                <div class="theme">
+                                    <h2 class="twTxt">{{item.title}}</h2>
+                                    <h3 class="enTxt">{{item.en}}</h3>
                                 </div>
-                                <p class="title" :title="item.vod_name">{{item.vod_name}}</p>
-                            </div>
-                        </li>
-                    </template>
+                                <div class="subtitle"><span>{{item.sub_01}}</span><span>{{item.sub_02}}</span></div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== dlBtn start ===== -->
+            <div class="dlBtn">
+                <ul>
+                    <li v-for="(item,index) in linkBtn">
+                        <a :href="item.href" target="_blank">
+                            <img :src="item.src">
+                        </a>
+                    </li>
                 </ul>
             </div>
-            <div class="footer">
-                <p><span>Copyright © since 2023</span><span> lulutv All Rights Reserved.</span></p>
+
+            <!-- ===== mvBox start ===== -->
+            <div class="mvBox">
+                <div class="nowtitle">正在播放 {{nowList}}</div>
+                <div class="mvList" id="mvList">
+                    <ul>
+                        <template v-for="(item,index) in mvList" :key="banner.num+index">
+                            <li>
+                                <div class="mvItem" @mouseenter="item.switch = true,showVod(index)"
+                                    @mouseleave="item.switch = false,delVod(index)" :class="{'on':item.switch}">
+                                    <div class="poster" :style="rebgi(item.vod_pic)"></div>
+
+                                    <!-- 移動端影片 -->
+                                    <template v-if="isMobile()">
+                                        <video class="video-js" preload='auto' webkit-playsinline="true" playsinline="true"
+                                            x5-video-player-type='h5-page' autoplay loop muted  v-if="item.switch">
+                                            <source :src="item.vod_play_url" type="application/x-mpegURL">
+                                        </video>
+                                    </template>
+                                    
+                                    <!-- PC端影片 -->
+                                    <template v-if="!isMobile()">
+                                        <video class="video-js" preload='auto' webkit-playsinline="true" playsinline="true"
+                                            x5-video-player-type='h5-page' autoplay loop muted >
+                                            <source :src="item.vod_play_url" type="application/x-mpegURL">
+                                        </video>
+                                    </template>
+                                    
+                                </div>
+                                <div class="txtBox">
+                                    <div class="msg">
+                                        <div class="vodSort">{{nowList}}</div>
+                                    </div>
+                                    <p class="title" :title="item.vod_name">{{item.vod_name}}</p>
+                                </div>
+                            </li>
+                        </template>
+                    </ul>
+                </div>
+                <div class="footer">
+                    <p><span>Copyright © since 2023</span><span> lulutv All Rights Reserved.</span></p>
+                </div>
             </div>
         </div>
     </div>

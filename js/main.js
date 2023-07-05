@@ -3,7 +3,7 @@ Vue.createApp({
         return {
             nowList: '熱門影片',
             menuSw: false,
-            isHttp: false,
+            blockade: false,
             
             // 影片列表
             mvList: [],
@@ -50,9 +50,9 @@ Vue.createApp({
 
             // 連結按鈕
             linkBtn: [
-                { href: 'https://www.june110.com', alt: 'LinkWeb line_1', src: 'images/download/dlBtn_01.webp' },
-                { href: 'https://www.june111.com', alt: 'LinkWeb line_1', src: 'images/download/dlBtn_02.webp' },
-                { href: 'https://www.june112.com', alt: 'LinkWeb line_1', src: 'images/download/dlBtn_03.webp' }
+                { href: 'https://www.june110.com', src: 'images/download/dlBtn_01.webp' },
+                { href: 'https://www.june111.com', src: 'images/download/dlBtn_02.webp' },
+                { href: 'https://www.june112.com', src: 'images/download/dlBtn_03.webp' }
             ]
         }
     },
@@ -188,7 +188,20 @@ Vue.createApp({
     },
 
     created() {
-        console.log(document.referrer);
+        // 獲取上一頁網域
+        let referrer = document.referrer;
+        let subUrl = referrer.substring(referrer.indexOf("//")+2)
+        if(subUrl.indexOf('/') != -1){
+            subUrl = subUrl.substring(0,subUrl.indexOf('/'))
+        }
+        if(subUrl.indexOf(':') != -1){
+            subUrl = subUrl.substring(0,subUrl.indexOf(':'))
+        }
+        console.log(subUrl)
+        if(subUrl == 'github.com'){
+            this.blockade = true;
+        }
+
         // window.location.href= 'https://www.june110.com';
         if (document.location.protocol == 'https:') {
             let meta = document.createElement('meta');
