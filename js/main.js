@@ -4,6 +4,7 @@ Vue.createApp({
             nowList: '熱門影片',
             menuSw: false,
             blockade: false,
+            mvBox_url:"--url:url(../images/other/bodyBg.webp)",
             
             // 影片列表
             mvList: [],
@@ -189,11 +190,11 @@ Vue.createApp({
 
     created() {
         // 獲取上一頁網域
-        let urlList = ['192.168.1.221','github.com'];
+        let urlList = ['127.0.0.1','github.com'];
         let self = this;
         urlList.forEach(function(item){
             if( document.referrer.includes(item)){
-                self.blockade = true;
+                // self.blockade = true;
             }
         })
 
@@ -203,7 +204,7 @@ Vue.createApp({
             meta.httpEquiv = 'Content-Security-Policy';
             document.getElementsByTagName('head')[0].appendChild(meta);
         }
-        this.$nextTick(() => { this.createVod("index"); })
+        this.$nextTick(() => { if(self.blockade) this.createVod("index"); })
     },
     mounted() {
         window.onresize = () => { this.menuSw = false; }

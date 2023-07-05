@@ -430,7 +430,7 @@ body {
         content: "";
         width: 100%;
         height: 100%;
-        background: url(../images/other/bodyBg.webp) no-repeat 90% bottom / 1000px auto;
+        background: var(--url) no-repeat 90% bottom / 1000px auto;
         position: absolute;
         @include pos(bl,
         0);
@@ -543,6 +543,7 @@ body {
     }
 }
 
+// ===== blockade start =====
 .blockade{
     width: 100%;
     height: 100vh;
@@ -551,21 +552,21 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: url("../images/other/bodyBg.webp") no-repeat top right / cover;
+    background: linear-gradient(30deg,#000,#1e1e1e,#000);
     .inner{
         width: calc(100% - 30px);
-        max-width: 400px;
+        max-width: 350px;
         padding: 40px 10px;
         box-shadow: 0 0 50vw #fff;
         border-radius: 5px;
     }
     .logo{
         width: 130px;
-        margin: 0 auto 15px;
+        margin: 0 auto 20px;
     }
     p{
-        font-size: 18px;
-        line-height: 25px;
+        font-size: 19px;
+        line-height: 28px;
         font-weight: bold;
         text-align: center;
         color: #ccc;
