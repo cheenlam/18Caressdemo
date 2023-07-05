@@ -188,6 +188,18 @@ Vue.createApp({
     },
 
     created() {
+        // window.location.href= 'https://www.june110.com';
+        if (document.location.protocol == 'https:') {
+            let meta = document.createElement('meta');
+            meta.content = 'upgrade-insecure-requests';
+            meta.httpEquiv = 'Content-Security-Policy';
+            document.getElementsByTagName('head')[0].appendChild(meta);
+        }
+        this.$nextTick(() => { this.createVod("index"); })
+    },
+    mounted() {
+        window.onresize = () => { this.menuSw = false; }
+
         // 獲取上一頁網域
         let referrer = document.referrer;
         let subUrl = referrer.substring(referrer.indexOf("//")+2)
@@ -202,16 +214,5 @@ Vue.createApp({
             this.blockade = true;
         }
 
-        // window.location.href= 'https://www.june110.com';
-        if (document.location.protocol == 'https:') {
-            let meta = document.createElement('meta');
-            meta.content = 'upgrade-insecure-requests';
-            meta.httpEquiv = 'Content-Security-Policy';
-            document.getElementsByTagName('head')[0].appendChild(meta);
-        }
-        this.$nextTick(() => { this.createVod("index"); })
-    },
-    mounted() {
-        window.onresize = () => { this.menuSw = false; }
     },
 }).mount("#app");
