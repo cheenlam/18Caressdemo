@@ -3,7 +3,7 @@ Vue.createApp({
         return {
             nowList: '熱門影片',
             menuSw: false,
-            blockade: false,
+            blockade: true,
             
             // 影片列表
             mvList: [],
