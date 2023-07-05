@@ -199,7 +199,7 @@ Vue.createApp({
         }
         console.log(subUrl)
         if(subUrl == 'github.com'){
-            // this.blockade = true;
+            this.blockade = true;
         }
 
         // window.location.href= 'https://www.june110.com';
