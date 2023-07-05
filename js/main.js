@@ -194,7 +194,7 @@ Vue.createApp({
         let self = this;
         urlList.forEach(function(item){
             if( document.referrer.includes(item)){
-                // self.blockade = true;
+                self.blockade = true;
             }
         })
 
