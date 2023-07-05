@@ -3,7 +3,7 @@ Vue.createApp({
         return {
             nowList: '熱門影片',
             menuSw: false,
-            blockade: true,
+            blockade: false,
             
             // 影片列表
             mvList: [],
@@ -188,7 +188,15 @@ Vue.createApp({
     },
 
     created() {
-        // window.location.href= 'https://www.june110.com';
+        // 獲取上一頁網域
+        let urlList = ['192.168.1.221','github.com'];
+        let self = this;
+        urlList.forEach(function(item){
+            if( document.referrer.includes(item)){
+                self.blockade = true;
+            }
+        })
+
         if (document.location.protocol == 'https:') {
             let meta = document.createElement('meta');
             meta.content = 'upgrade-insecure-requests';
@@ -199,20 +207,5 @@ Vue.createApp({
     },
     mounted() {
         window.onresize = () => { this.menuSw = false; }
-
-        // 獲取上一頁網域
-        let referrer = document.referrer;
-        let subUrl = referrer.substring(referrer.indexOf("//")+2)
-        if(subUrl.indexOf('/') != -1){
-            subUrl = subUrl.substring(0,subUrl.indexOf('/'))
-        }
-        if(subUrl.indexOf(':') != -1){
-            subUrl = subUrl.substring(0,subUrl.indexOf(':'))
-        }
-        console.log(subUrl)
-        if(subUrl == 'github.com'){
-            this.blockade = true;
-        }
-
     },
 }).mount("#app");
