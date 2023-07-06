@@ -7,6 +7,17 @@ body {
     background-color: #181518;
 }
 
+.indexBox{
+    .fullShow,
+    .dlBtn,
+    .mvBox{
+        display: none;
+        &.on{
+            display: block;
+        }
+    }
+}
+
 // ===== fullShow start =====
 .fullShow {
     max-width: 1600px;
@@ -553,6 +564,7 @@ body {
     align-items: center;
     justify-content: center;
     background: linear-gradient(30deg,#000,#1e1e1e,#000);
+
     .inner{
         width: calc(100% - 30px);
         max-width: 350px;

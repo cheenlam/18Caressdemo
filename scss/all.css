@@ -114,6 +114,17 @@ body {
   background-color: #181518;
 }
 
+.indexBox .fullShow,
+.indexBox .dlBtn,
+.indexBox .mvBox {
+  display: none;
+}
+.indexBox .fullShow.on,
+.indexBox .dlBtn.on,
+.indexBox .mvBox.on {
+  display: block;
+}
+
 .fullShow {
   max-width: 1600px;
   margin: auto;

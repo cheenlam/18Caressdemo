@@ -8,22 +8,24 @@
 
     <script src="js/vue3.js"></script>
     <script src="js/axios.js"></script>
-    <link rel="stylesheet" href="scss/all.css">
+    <link rel="stylesheet" href="scss/all.css?1.0.0">
 
     <!-- ======= videoJs ======= -->
     <script src="js/videoJs.js"></script>
     <link rel="stylesheet" href="scss/video-js.css">
 
     <!-- ======= 標題 & 收藏夾 ======= -->
-    <title>影視平台 | 熱門影片</title>
     <link rel="icon" href="images/other/icoLogo.png" type="image/x-icon">
     <link rel="shortcut icon" href="images/other/icoLogo.png" type="image/x-icon">
 </head>
 
 <body>
     <div class="indexBox" id="app">
+        <title v-if="blockade">影视平台 | {{nowList}}</title>
+        <title v-if="!blockade">请由正确入口访问</title>
+
         <!-- ===== fullShow start ===== -->
-        <div class="fullShow" v-if="blockade">
+        <div class="fullShow" v-if="blockade" :class="{'on': blockade}">
             <div class="top">
                 <h1 class="txtLogo" @click="createVod()">18caress</h1>
                 <div class="menuBar">
@@ -62,7 +64,7 @@
         </div>
 
         <!-- ===== dlBtn start ===== -->
-        <div class="dlBtn" v-if="blockade">
+        <div class="dlBtn" v-if="blockade" :class="{'on': blockade}">
             <ul>
                 <li v-for="(item,index) in linkBtn">
                     <a :href="item.href" target="_blank">
@@ -73,7 +75,7 @@
         </div>
 
         <!-- ===== mvBox start ===== -->
-        <div class="mvBox" v-if="blockade" :style="mvBox_url">
+        <div class="mvBox" v-if="blockade" :style="mvBox_url" :class="{'on': blockade}">
             <div class="nowtitle">正在播放 {{nowList}}</div>
             <div class="mvList" id="mvList">
                 <ul>
@@ -114,17 +116,18 @@
                 <p><span>Copyright © since 2023</span><span> lulutv All Rights Reserved.</span></p>
             </div>
         </div> 
-        <div class="blockade" v-if="!blockade">
+
+        <!-- ===== blockade start ===== -->
+        <div class="blockade" v-if="!blockade" >
             <div class="inner">
                 <div class="logo">
                     <img src="images/other/logo.png">
                 </div>
-                <p>欢迎莅临 LULUTV</p>
+                <p>欢迎莅临</p>
                 <p>请由正确入口访问</p>
             </div>
         </div>
     </div>
-
     <script src="js/main.js?1.0.1"></script>
 </body>
 

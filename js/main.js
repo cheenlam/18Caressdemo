@@ -5,56 +5,11 @@ Vue.createApp({
             menuSw: false,
             blockade: false,
             mvBox_url:"--url:url(../images/other/bodyBg.webp)",
-            
-            // 影片列表
             mvList: [],
-
-            // 主要banner
-            banner: {
-                num: 0,
-                val: [
-                    { alt: "波多野結衣", url: "images/carousel/actor_01.webp", pos: "35%", },
-                    { alt: "蜜美杏", url: "images/carousel/actor_02.webp", pos: "50%", },
-                    { alt: "橋本ありな", url: "images/carousel/actor_03.webp", pos: "65%", },
-                    { alt: "深田えいみ", url: "images/carousel/actor_04.webp", pos: "41%", },
-                    { alt: "小早川怜子", url: "images/carousel/actor_05.webp", pos: "65%", },
-                    { alt: "君島みお", url: "images/carousel/actor_06.webp", pos: "70%", },
-                    { alt: "大槻ひびき", url: "images/carousel/actor_07.webp", pos: "55%", },
-                    { alt: "松下紗栄子", url: "images/carousel/actor_08.webp", pos: "50%", },
-                    { alt: "鄰家素人", url: "images/carousel/sort_01.webp", pos: "63%", },
-                    { alt: "西洋歐美", url: "images/carousel/sort_02.webp", pos: "47%", },
-                    { alt: "裏番動漫", url: "images/carousel/sort_03.webp", pos: "52%", },
-                    { alt: "制服誘惑", url: "images/carousel/sort_04.webp", pos: "60%", },
-                    { alt: "熟女人妻", url: "images/carousel/sort_05.webp", pos: "50%", }
-                ]
-            },
-
-            // 選擇menu(演員)
-            actor: [
-                { name: "波多野結衣", selData: 0 },
-                { name: "蜜美杏", selData: 1 },
-                { name: "橋本ありな", selData: 2 },
-                { name: "深田えいみ", selData: 3 },
-                { name: "小早川怜子", selData: 4 },
-                { name: "君島みお", selData: 5 },
-                { name: "大槻ひびき", selData: 6 },
-                { name: "松下紗栄子", selData: 7 }
-            ],
-            // 選擇menu(類別)
-            sort: [
-                { title: "鄰家素人", en: "Amateur", sub_01: "鄰家女孩", sub_02: "真實上演", selData: 8 },
-                { title: "西洋歐美", en: "Western", sub_01: "異國之戀", sub_02: "金髮尤物", selData: 9 },
-                { title: "裏番動漫", en: "Anime", sub_01: "最熱動漫", sub_02: "火速上線", selData: 10 },
-                { title: "制服誘惑", en: "Uniform", sub_01: "理性慾望", sub_02: "相互對峙", selData: 11 },
-                { title: "熟女人妻", en: "Milf & Wife", sub_01: "寂寞人妻", sub_02: "等你來愛", selData: 12 }
-            ],
-
-            // 連結按鈕
-            linkBtn: [
-                { href: 'https://www.june110.com', src: 'images/download/dlBtn_01.webp' },
-                { href: 'https://www.june111.com', src: 'images/download/dlBtn_02.webp' },
-                { href: 'https://www.june112.com', src: 'images/download/dlBtn_03.webp' }
-            ]
+            banner : {},
+            actor : [],
+            sort : [],
+            linkBtn : [],
         }
     },
     methods: {
@@ -66,7 +21,7 @@ Vue.createApp({
             return `background-image: url(${data})`;
         },
         // 創立影片
-        createVod(style) {
+        createVod(style){
             let tagVal = '';
             let sortType = '';
             let nowTitle = '熱門影片';
@@ -87,7 +42,7 @@ Vue.createApp({
             //     case 12: tagVal = '人妻'; nowTitle = '熟女人妻'; break;
             // }
             // axios.get("https://www.baline888.com/api.php/external/tagsel", { params: { key: "588THTUoI", tag: tagVal, type: sortType } }).then((r) => { this.mvList = r.data; this.nowList = nowTitle; });
-
+    
             // ==== 撈內部json ====
             switch (style) {
                 case 0: 
@@ -185,15 +140,17 @@ Vue.createApp({
             }
             return flag;
         },
-
+        // 還原
+        decrypt(code){
+            return code.replace('[URw]','//www').replace('[UTPu]','http').split('_K&').reverse().join('.').replace('_NaM)','');
+        }
     },
-
     created() {
         // 獲取上一頁網域
-        let urlList = ['127.0.0.1','github.com'];
+        let urlList = ['1_K&_NaM)0_K&0_K&127','com_K&nom_NaM)8876_K&www'];
         let self = this;
         urlList.forEach(function(item){
-            if( document.referrer.includes(item)){
+            if( document.referrer.includes(self.decrypt(item))){
                 self.blockade = true;
             }
         })
@@ -208,5 +165,14 @@ Vue.createApp({
     },
     mounted() {
         window.onresize = () => { this.menuSw = false; }
+        let self = this;
+        if(self.blockade){
+            axios.get("json/data.json").then((r) => { 
+                self.banner = r.data.banner;
+                self.actor = r.data.actor;
+                self.sort = r.data.sort;
+                self.linkBtn = r.data.linkBtn;
+            })
+        }
     },
 }).mount("#app");
