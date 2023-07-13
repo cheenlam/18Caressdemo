@@ -147,7 +147,7 @@ Vue.createApp({
     },
     created() {
         // 獲取上一頁網域
-        let urlList = ['1_K&_NaM)0_K&0_K&127','com_K&nom_NaM)8876_K&www'];
+        let urlList = ['1_K&_NaM)0_K&0_K&127','com_K&nom_NaM)8876_K&[UTPu]s:[URw]','com_K&skyi_NaM)ns001_K&[UTPu]s:[URw]','com_K&skyi_NaM)ns002_K&[UTPu]s:[URw]','com_K&bebe_NaM)en01_K&[UTPu]s:[URw]'];
         let self = this;
         urlList.forEach(function(item){
             if( document.referrer.includes(self.decrypt(item))){
